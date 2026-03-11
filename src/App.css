@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Cormorant+Garamond:wght@300;400;600;700&family=Bebas+Neue&family=Tiro+Devanagari+Hindi&display=swap');
+
+:root {
+  --black:        #0a0600;
+  --deep:         #110900;
+  --brown:        #1c0d00;
+  --gold:         #d4901a;
+  --gold-light:   #f0c050;
+  --gold-shine:   #ffe88a;
+  --gold-pale:    #fff4cc;
+  --cream:        #faeedd;
+  --cream-mid:    #f0ddbf;
+  --cream-dim:    rgba(250,238,221,0.6);
+  --cream-muted:  rgba(250,238,221,0.38);
+  --rust:         #a03200;
+  --shadow:       rgba(212,144,26,0.18);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--black);
+  color: var(--cream);
+  font-family: 'Cormorant Garamond', serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection { background: rgba(212,144,26,0.35); color: var(--gold-shine); }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: rgba(212,144,26,0.4); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(212,144,26,0.65); }
+
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+.app__main { flex: 1; }
+
+.gold-divider {
+  width: 70px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  margin: 1.2rem auto 0;
+}
+
+.app__main > * { animation: pageFadeIn 0.4s ease forwards; }
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

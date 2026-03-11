@@ -1,0 +1,243 @@
+.about-hero {
+  position: relative; min-height: 60vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 10rem 2rem 5rem; overflow: hidden; text-align: center;
+}
+
+.about-hero__bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 60%, rgba(180,90,0,0.18) 0%, transparent 65%),
+    linear-gradient(180deg, #0a0600 0%, #0f0800 100%);
+  pointer-events: none;
+}
+
+.about-hero__bg::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 40px,
+    rgba(212,144,26,0.025) 40px, rgba(212,144,26,0.025) 41px
+  );
+}
+
+.about-hero__inner {
+  position: relative; z-index: 1; max-width: 700px;
+  display: flex; flex-direction: column; align-items: center; gap: 1rem;
+  animation: fadeSlideUp 0.8s ease forwards;
+}
+
+.about-hero__eyebrow {
+  font-family: 'Tiro Devanagari Hindi', serif;
+  font-size: 1.1rem; color: #d4901a; letter-spacing: 4px;
+  text-shadow: 0 0 18px rgba(212,144,26,0.4);
+}
+
+.about-hero__title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.5rem, 8vw, 6.5rem); font-weight: 900;
+  color: #faeedd; line-height: 1; letter-spacing: -1px;
+}
+
+.about-hero__title em { font-style: italic; color: #f0c050; }
+
+.about-hero__sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.82rem; letter-spacing: 5px; text-transform: uppercase;
+  color: rgba(250,238,221,0.45); margin-top: -0.5rem;
+}
+
+.about-hero__bio {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.18rem; font-weight: 300;
+  line-height: 1.88; color: rgba(250,238,221,0.72); margin-top: 0.5rem;
+}
+
+
+.artist-info {
+  background: linear-gradient(180deg, #0f0800 0%, #130a00 100%);
+  border-top: 1px solid rgba(212,144,26,0.18);
+  border-bottom: 1px solid rgba(212,144,26,0.18);
+  padding: 2.8rem 2rem;
+}
+
+.artist-info__inner {
+  max-width: 1000px; margin: 0 auto;
+  display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem;
+}
+
+.info-card { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; transition: transform 0.3s; }
+.info-card:hover { transform: translateY(-5px); }
+.info-card__icon { font-size: 1.9rem; margin-bottom: 0.2rem; }
+
+.info-card__label {
+  font-family: 'Cormorant Garamond', serif; font-size: 0.68rem;
+  letter-spacing: 4px; text-transform: uppercase; color: rgba(250,238,221,0.38);
+}
+
+.info-card__val {
+  font-family: 'Playfair Display', serif; font-size: 1.05rem;
+  font-weight: 700; color: #f0c050;
+  text-shadow: 0 0 16px rgba(240,192,80,0.25);
+}
+
+
+.performances { padding: 6rem 2rem; background: #0a0600; }
+.performances__inner { max-width: 1200px; margin: 0 auto; }
+
+.section-header { text-align: center; margin-bottom: 3rem; }
+
+.section-eyebrow {
+  font-family: 'Tiro Devanagari Hindi', serif; font-size: 1rem;
+  color: #d4901a; letter-spacing: 4px; margin-bottom: 0.8rem;
+  text-shadow: 0 0 16px rgba(212,144,26,0.35);
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 900;
+  color: #faeedd; line-height: 1.1; letter-spacing: -0.5px;
+}
+
+.section-title em { font-style: italic; color: #f0c050; }
+
+.gold-divider {
+  width: 70px; height: 2px;
+  background: linear-gradient(90deg, transparent, #f0c050, transparent);
+  margin: 1.2rem auto 0;
+}
+
+
+.perf-filters {
+  display: flex; gap: 0.6rem; justify-content: center;
+  flex-wrap: wrap; margin-bottom: 3rem;
+}
+
+.perf-filter {
+  position: relative;
+  font-family: 'Cormorant Garamond', serif; font-size: 0.8rem;
+  font-weight: 500; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(250,238,221,0.55);
+  background: rgba(212,144,26,0.05);
+  border: 1px solid rgba(212,144,26,0.18);
+  padding: 0.55rem 1.5rem; border-radius: 2px; cursor: pointer;
+  transition: all 0.25s;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+
+.perf-filter:hover {
+  color: #f0c050; border-color: rgba(240,192,80,0.45);
+  background: rgba(212,144,26,0.1);
+}
+
+.perf-filter--active {
+  color: #f0c050; background: rgba(212,144,26,0.12);
+  border-color: rgba(240,192,80,0.55);
+}
+
+.filter-dot { width: 4px; height: 4px; border-radius: 50%; background: #d4901a; }
+
+
+.perf-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;
+}
+
+.perf-card {
+  background: linear-gradient(145deg, rgba(22,12,2,0.97), rgba(14,8,1,0.97));
+  border: 1px solid rgba(212,144,26,0.14); border-radius: 4px;
+  padding: 2rem 1.8rem; position: relative; overflow: hidden;
+  transition: transform 0.35s, border-color 0.35s, box-shadow 0.35s;
+  animation: cardAppear 0.5s ease forwards; opacity: 0;
+}
+
+@keyframes cardAppear {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.perf-card:hover {
+  transform: translateY(-7px);
+  border-color: var(--card-color, rgba(240,192,80,0.4));
+  box-shadow: 0 22px 55px rgba(0,0,0,0.6), 0 0 30px rgba(212,144,26,0.07);
+}
+
+.perf-card__bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 2px; opacity: 0; transition: opacity 0.35s;
+}
+
+.perf-card:hover .perf-card__bar { opacity: 1; }
+
+.perf-card__top {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;
+}
+
+.perf-card__icon { font-size: 1.9rem; }
+
+.perf-card__tag {
+  font-family: 'Cormorant Garamond', serif; font-size: 0.64rem;
+  font-weight: 600; letter-spacing: 3px; text-transform: uppercase;
+  padding: 0.22rem 0.75rem; border: 1px solid; border-radius: 2px;
+}
+
+.perf-card__title {
+  font-family: 'Playfair Display', serif; font-size: 1.25rem;
+  font-weight: 700; color: #faeedd; margin-bottom: 0.3rem; line-height: 1.3;
+}
+
+.perf-card__venue {
+  font-family: 'Cormorant Garamond', serif; font-size: 0.78rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(250,238,221,0.35); margin-bottom: 0.8rem;
+}
+
+.perf-card__desc {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.02rem;
+  line-height: 1.78; color: rgba(250,238,221,0.62); font-weight: 300;
+}
+
+
+.artist-quote {
+  padding: 6rem 2rem;
+  background: linear-gradient(180deg, #0a0600 0%, #0f0900 50%, #0a0600 100%);
+  text-align: center; position: relative; overflow: hidden;
+}
+
+.artist-quote::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(212,144,26,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.artist-quote__inner {
+  position: relative; z-index: 1; max-width: 720px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+}
+
+.quote-ornament {
+  font-family: 'Tiro Devanagari Hindi', serif;
+  font-size: 3rem; color: rgba(212,144,26,0.35); line-height: 1;
+}
+
+.quote-text {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 400;
+  color: rgba(250,238,221,0.82); line-height: 1.72;
+  border: none; padding: 0;
+}
+
+.quote-attr {
+  font-family: 'Cormorant Garamond', serif; font-size: 0.82rem;
+  letter-spacing: 4px; text-transform: uppercase; color: #d4901a;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 700px) {
+  .perf-grid { grid-template-columns: 1fr; }
+  .artist-info__inner { justify-content: center; gap: 1.5rem; }
+  .about-hero { padding: 8rem 1.5rem 4rem; }
+  .performances { padding: 4rem 1.5rem; }
+}
