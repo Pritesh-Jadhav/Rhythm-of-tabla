@@ -5,7 +5,7 @@ import "./Home.css";
 const SLIDES = [
   {
     id: 1,
-    tag: "Hello",
+    tag: "PERCUSSION",
     badge: "🥁 The Tabla",
     heading: "Soul of Indian",
     headingAccent: "Classical Music",
