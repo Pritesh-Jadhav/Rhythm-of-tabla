@@ -14,10 +14,45 @@ export default function Contact() {
     return e;
   };
 
-  const handleSubmit = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
     const e = validate();
     if (Object.keys(e).length) { setErrors(e); return; }
-    setSent(true);
+    
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY,
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          event: form.event,
+          message: form.message,
+          subject: `New Booking Request from ${form.name} for ${form.event || "Event"}`,
+          from_name: "Rhythm of Tabla Website"
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setSent(true);
+        setForm({ name: "", email: "", phone: "", event: "", message: "" });
+      } else {
+        alert(result.message || "Failed to send the message. Please try again later.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred while sending the message. Please check your network connection.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const set = (key) => (ev) => {
@@ -176,14 +211,14 @@ export default function Contact() {
                   {errors.message && <span className="form-error">{errors.message}</span>}
                 </div>
 
-                <button className="form-submit" type="submit">
-                  <span className="submit-text">Send Booking Request</span>
+                <button className="form-submit" type="submit" disabled={isSubmitting}>
+                  <span className="submit-text">{isSubmitting ? "Sending..." : "Send Booking Request"}</span>
                   <span className="submit-arrow">→</span>
                   <div className="submit-shine" />
                 </button>
 
                 <p className="form-note">
-                  🔒 Your information is safe. Sai will respond within 24 hours at <a href="mailto:sainikamtabla@gmail.com">sainikamtabla@gmail.com</a>
+                  🔒 Your information is safe. Sai will respond within 24 hours at <a href="mailto:sainikam840@gmail.com">sainikam840@gmail.com</a>
                 </p>
               </form>
             )}
