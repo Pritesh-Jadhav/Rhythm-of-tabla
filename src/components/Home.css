@@ -476,6 +476,45 @@
 
 @keyframes shineSweep { 0%,100% { left: -100%; } 50% { left: 160%; } }
 
+/* ── AUDIO TOGGLE BUTTON ── */
+.audio-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: rgba(212, 144, 26, 0.08);
+  border: 1px solid rgba(212, 144, 26, 0.4);
+  color: #f0c050;
+  padding: 0.85rem 2rem;
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+  transition: all 0.25s;
+}
+
+.audio-toggle-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.audio-toggle-btn:hover {
+  background: rgba(212, 144, 26, 0.18);
+  border-color: rgba(240, 192, 80, 0.7);
+  transform: translateY(-3px);
+  color: #ffe88a;
+}
+
+.audio-toggle-btn.playing {
+  border-color: rgba(240, 192, 80, 0.9);
+  background: rgba(212, 144, 26, 0.2);
+  color: #fff4c2;
+}
+
 /* ═══ RESPONSIVE ════════════════════════════ */
 @media (max-width: 900px) {
   .instruments-grid { grid-template-columns: 1fr; }

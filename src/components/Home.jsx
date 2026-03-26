@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import "./Home.css";
+import zakirAudio from "../assets/Zakir Hussain Meets Berklee - Ustad Zakir Hussain Tabla Solo.mp3";
 
 // ── SLIDER DATA ──────────────────────────────────────────────
 const SLIDES = [
@@ -100,7 +101,7 @@ function FloatingBols() {
 }
 
 // ── SLIDE CONTENT ────────────────────────────────────────────
-function SlideContent({ slide, settled, onCta }) {
+function SlideContent({ slide, settled, onCta, extraActions }) {
   return (
     <div className={`slide-content ${settled ? "slide-content--settled" : ""}`}>
       <div className="slide-content__left">
@@ -126,6 +127,7 @@ function SlideContent({ slide, settled, onCta }) {
           <button className="sc__btn-ghost" onClick={onCta}>
             {slide.ctaSecondary}
           </button>
+          {extraActions && extraActions}
         </div>
       </div>
 
@@ -148,6 +150,7 @@ export default function Home({ onNavigate }) {
   const [paused, setPaused]       = useState(false);
   const [progress, setProgress]   = useState(0);
   const audioRef                  = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const goTo = useCallback((idx, direction = "next") => {
     if (animating || idx === current) return;
@@ -164,14 +167,17 @@ export default function Home({ onNavigate }) {
 
   // Autoplay
   useEffect(() => {
-    if (paused) return;
+    if (paused || current === 2) return;
     const t = setInterval(goNext, AUTOPLAY);
     return () => clearInterval(t);
-  }, [paused, goNext]);
+  }, [paused, goNext, current]);
 
   // Progress ring
   useEffect(() => {
-    if (paused) return;
+    if (paused || current === 2) {
+      if (current === 2) setProgress(100);
+      return;
+    }
     setProgress(0);
     const start = Date.now();
     const t = setInterval(() => {
@@ -180,11 +186,55 @@ export default function Home({ onNavigate }) {
     return () => clearInterval(t);
   }, [current, paused]);
 
+  // Audio Playback Logic
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (current === 2) {
+      audio.currentTime = 16;
+      audio.play().then(() => setIsPlaying(true)).catch(e => {
+        console.warn("Autoplay prevented", e);
+        setIsPlaying(false);
+      });
+
+      const handleTimeUpdate = () => {
+        if (audio.currentTime >= 120) {
+          audio.currentTime = 16;
+          audio.play().catch(e => console.warn(e));
+        }
+      };
+
+      audio.addEventListener("timeupdate", handleTimeUpdate);
+      return () => {
+        audio.removeEventListener("timeupdate", handleTimeUpdate);
+        audio.pause();
+        setIsPlaying(false);
+      };
+    } else {
+      audio.pause();
+      audio.currentTime = 16;
+      setIsPlaying(false);
+    }
+  }, [current]);
+
+  const toggleAudio = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+    } else {
+      audio.play().then(() => setIsPlaying(true)).catch(e => console.warn(e));
+    }
+  };
+
   const slide     = SLIDES[current];
   const prevSlide = prev !== null ? SLIDES[prev] : null;
 
   return (
     <div className="home">
+      <audio ref={audioRef} src={zakirAudio} loop={false} preload="auto" />
       
       <section
         className="hero"
@@ -210,7 +260,27 @@ export default function Home({ onNavigate }) {
             style={{ background: slide.bg }}
           >
             <div className="hero__bg-grain" />
-            <SlideContent slide={slide} settled={!animating} onCta={() => onNavigate("Contact")} />
+            <SlideContent 
+              slide={slide} 
+              settled={!animating} 
+              onCta={() => onNavigate("Contact")} 
+              extraActions={
+                current === 2 && (
+                  <button 
+                    className={`audio-toggle-btn ${isPlaying ? 'playing' : ''}`}
+                    onClick={toggleAudio}
+                    aria-label={isPlaying ? "Pause Audio" : "Play Audio"}
+                  >
+                    {isPlaying ? (
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                    )}
+                    <span>{isPlaying ? "Pause" : "Play"}</span>
+                  </button>
+                )
+              }
+            />
           </div>
         </div>
 
